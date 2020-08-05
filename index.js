@@ -12,27 +12,120 @@
 //one more Thing create a 'reset' and a 'new game' buttons as childs of the element with the id 'buttons'. the reset button has to start the game again and the new game create a new game with new players and a new random board.
 
 const board_Player1 = document.getElementById('board_player1');
+const board_Player2 = document.getElementById('board_player2');
 
+
+
+let player1 = {
+  name: (name_player1.textContent = prompt(
+    "You are Player 1, What is your name?"
+  )),
+  shipCount: 4,
+  board: [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ],
+};
+
+let player2 = {
+  name: (name_player2.textContent = prompt(
+    "You are Player 2, What is your name?"
+  )),
+  shipCount: 4,
+  board: [
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+    [0, 0, 0, 0],
+  ],
+};
+
+
+
+
+
+//Board 1 
 for (var x = 0; x < 4; x++) {
 
-    const li = document.createElement('li'); // creating childs for the list (board), in this case represent a row number 'x' of the board
+  const li = document.createElement('li'); // creating childs for the list (board), in this case represent a row number 'x' of the board
 
-    for (var y = 0; y < 4; y++) {
-      const cell = document.createElement('div');
-      cell.className = "square"; // adding css properties to make it looks like a square
-      cell.textContent = `${x},${y}`;  // saves the coordinates as a string value 'x,y'
-      cell.value = 0;//state of the cell
+  for (var y = 0; y < 4; y++) {
+    const cell = document.createElement('div');
+    cell.className = "square"; // adding css properties to make it looks like a square
+    cell.textContent = `${x},${y}`;  // saves the coordinates as a string value 'x,y'
+    cell.value = 0;//state of the cell
 
-      //this function adds the click event to each cell
-      cell.addEventListener( 'click', (e) => {
-          let cell = e.target; // get the element clicked
-          console.log( cell.textContent) //display the coordinates in the console
-          cell.style.visibility = 'hidden';// this  means that the contents of the element will be invisible, but the element stays in its original position and size / try it clicking on any of the black cells (in your browser) and see whats happens
-          //cell.style.background ="purple"; //with this propertie you can change the background color of the clicked cell. try comment the line bellow and uncomment this line. Do not forget to save this file and refresh the borwser to see the changes
-      });
+    //this function adds the click event to each cell
+    cell.addEventListener('click', (e) => {
+      let cell = e.target; // get the element clicked
+      console.log(cell.textContent) //display the coordinates in the console
+      cell.style.visibility = 'hidden';// this  means that the contents of the element will be invisible, but the element stays in its original position and size / try it clicking on any of the black cells (in your browser) and see whats happens
+      //cell.style.background ="purple"; //with this propertie you can change the background color of the clicked cell. try comment the line bellow and uncomment this line. Do not forget to save this file and refresh the borwser to see the changes
+    });
 
-      li.appendChild(cell); //adding each cell into the row number x
-    }
+    li.appendChild(cell); //adding each cell into the row number x
+  }
 
-     board_Player1.appendChild(li); //adding each row into the board
+  board_Player1.appendChild(li); //adding each row into the board
 }
+//Board 2
+for (var x = 0; x < 4; x++) {
+
+  const li = document.createElement('li'); // creating childs for the list (board), in this case represent a row number 'x' of the board
+
+  for (var y = 0; y < 4; y++) {
+    const cell = document.createElement('div');
+    cell.className = "square"; // adding css properties to make it looks like a square
+    cell.textContent = `${x},${y}`;  // saves the coordinates as a string value 'x,y'
+    cell.value = 0;//state of the cell
+
+    //this function adds the click event to each cell
+    cell.addEventListener('click', (e) => {
+      let cell = e.target; // get the element clicked
+      console.log(cell.textContent) //display the coordinates in the console
+      cell.style.visibility = 'hidden';// this  means that the contents of the element will be invisible, but the element stays in its original position and size / try it clicking on any of the black cells (in your browser) and see whats happens
+      //cell.style.background ="purple"; //with this propertie you can change the background color of the clicked cell. try comment the line bellow and uncomment this line. Do not forget to save this file and refresh the borwser to see the changes
+    });
+
+    li.appendChild(cell); //adding each cell into the row number x
+  }
+
+  board_Player2.appendChild(li); //adding each row into the board
+}
+
+//Random ship placement
+function placeShip(player) {
+  while (player.shipCount < 4) {
+    let x = Math.floor(Math.random() * 4);
+    let y = Math.floor(Math.random() * 4);
+
+    if (player.board[x][y] === 0) {
+      console.log(player.name, ":", x, y);
+
+      player.board[x][y] = 1;
+      player.shipCount++;
+    }
+  }
+}
+placeShip(player1);
+placeShip(player2);
+
+
+// This Code adds the New Button to the game
+
+const newGame = document.createElement('button'); // Creates the element 'button' on the DOM
+newGame.className = 'button';
+newGame.textContent = 'New';
+
+newGame.addEventListener('click', (e) => {
+  window.location.reload(true); // This line of code refreshes the page, which is basically what the 'New' button does.
+});
+
+buttons.appendChild(newGame);
+
+
+
+
+ 
